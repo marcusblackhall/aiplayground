@@ -1,0 +1,105 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+security:
+  - app_id: [ ]
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Generated server url
+paths:
+  /completions:
+    post:
+      tags:
+        - completions
+      operationId: executeRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AiRequest'
+        required: true
+      responses:
+
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AiResponse'
+        "404":
+          description: Not found
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/AiError'
+components:
+  securitySchemes:
+    app_id:
+      type: apiKey
+      description: API key to authorize requests.
+      name: appid
+      in: query
+
+  schemas:
+    AiError:
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+        param:
+          type: string
+        code:
+          type: string
+
+    AiRequest:
+      type: object
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+        frequency_penalty:
+          type: number
+          format: double
+        stop:
+          type: array
+          items:
+            type: string
+        max_tokens:
+          type: integer
+          format: int32
+        presence_penalty:
+          type: number
+          format: double
+        top_p:
+          type: number
+          format: double
+    AiChoice:
+      type: object
+      properties:
+        text:
+          type: string
+        finish_reason:
+          type: string
+    AiResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        created:
+          type: integer
+          format: int64
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AiChoice'
