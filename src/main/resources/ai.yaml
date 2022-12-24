@@ -27,6 +27,15 @@ paths:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/AiResponse'
+        "401":
+          description: Unauthorised
+          content:
+            application/hal+json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    $ref: '#/components/schemas/AiError'
         "404":
           description: Not found
           content:
@@ -36,6 +45,7 @@ paths:
                 properties:
                   error:
                     $ref: '#/components/schemas/AiError'
+
 components:
   securitySchemes:
     app_id:

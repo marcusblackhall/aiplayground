@@ -15,25 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AiControllerImpl implements CompletionsApi {
 
-    @Autowired
-    private AiClient aiClient;
+	@Autowired
+	private AiClient aiClient;
 
-//    @PostMapping
+	// @PostMapping
 
-    @Override
-    @CrossOrigin
-    public ResponseEntity<AiResponse> executeRequest(@RequestBody AiRequest aiRequest) {
-        AiResponse aiResponse = executeAiRequest(aiRequest);
-        return ResponseEntity.ok(aiResponse);
-    }
+	@Override
+	@CrossOrigin
+	public ResponseEntity<AiResponse> executeRequest(@RequestBody AiRequest aiRequest) {
+		AiResponse aiResponse = executeAiRequest(aiRequest);
+		return ResponseEntity.ok(aiResponse);
+	}
 
-    private AiResponse executeAiRequest(AiRequest aiRequest) {
+	private AiResponse executeAiRequest(AiRequest aiRequest) {
 
-        return aiClient.executeAiRequest(aiRequest);
-    }
+		return aiClient.executeAiRequest(aiRequest);
+	}
 
+	// public ResponseEntity<nl.ilovecoding.aiplayground.xmodel.AiResponse>
+	// executeRequest(nl.ilovecoding.aiplayground.xmodel.AiRequest aiRequest) {
+	// return AiApi.super.executeRequest(aiRequest);
+	// }
 
-//    public ResponseEntity<nl.ilovecoding.aiplayground.xmodel.AiResponse> executeRequest(nl.ilovecoding.aiplayground.xmodel.AiRequest aiRequest) {
-//        return AiApi.super.executeRequest(aiRequest);
-//    }
 }
